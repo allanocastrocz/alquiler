@@ -8,13 +8,16 @@
     <title>Alquiler</title>
 
     <?php include_once("modules\css-lib.php"); ?>
-    <link href="assets\css\sidebars.css" rel="stylesheet">
+    <link href="css\sidebars.css" rel="stylesheet">
 
 </head>
 
 <body>
     <header>
-        <?php include_once("modules/navbar.php"); ?>
+        <?php include_once("modules/navbar.php");
+        if (!isset($_SESSION['usuario']))
+            Header("Location: signin.php");
+        ?>
     </header>
     <main>
         <div class="container">
@@ -24,7 +27,7 @@
                 </div>
                 <div class="col-md-9 col-lg-10">
                     <div class="container pt-5">
-                    <?php include("vistas/factura.php"); ?>
+                        <?php include("vistas/factura.php"); ?>
                     </div>
                 </div>
             </div>
@@ -33,8 +36,8 @@
 
 
     <?php include_once("modules/js-scripts.php"); ?>
-    <script src="assets\javascript\sidebars.js"></script>
-    <script src="assets\javascript\tables.js"></script>
+    <script src="javascript\sidebars.js"></script>
+    <script src="javascript\tables.js"></script>
 
 </body>
 

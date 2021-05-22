@@ -1,3 +1,7 @@
+
+<?php require("bd\conexion.php"); ?>
+
+
 <table id="maintable" class="table table-striped"  style="width:100%">
     <thead>
         <tr>
