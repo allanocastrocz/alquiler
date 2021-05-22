@@ -88,7 +88,7 @@
 
                         </div>
 
-                        <input type="text" name="tipo" value="empleado" hidden>
+                        <input type="text" name="tipo" value="cliente" hidden>
 
                         <!--Botón para iniciar sesión-->
                         <div class="col-sm-12 my-5">
