@@ -5,7 +5,6 @@ class DB
     private $db; // atributo $db
     private $user; // atributo $user
     private $password; // atributo $password
-    private $charset; // atributo $charset
 
     public function __construct()
     { // se crea el metodo constructor
@@ -27,7 +26,7 @@ class DB
             // Se crea la conexion
             $pdo = new PDO($connection, $this->user, $this->password, $options);
             // set the character set properly.
-            $pdo->query('SET NAMES gbk');
+            $pdo->query("SET NAMES 'utf8'");
             // retorna el resultado del objeto
             return $pdo;
         } catch (PDOException $e) { // se atrapa el error

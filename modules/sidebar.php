@@ -14,47 +14,35 @@ else
             </svg>
             <span class="fs-5 fw-semibold"><?php echo $tipo_user; ?></span>
         </a>
-        <ul class="list-unstyled ps-0">
-            <?php if ($tipo_user == "CLIENTE") { ?>
-                <li class="mb-1">
-                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
-                        Vistas
-                    </button>
-                    <div class="collapse show" id="home-collapse">
-                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="?pag=factura.php" class="link-dark rounded">Factura</a></li>
-                            <li><a href="?pag=promocion.php" class="link-dark rounded">Promoción</a></li>
-                            <li><a href="?pag=ticket.php" class="link-dark rounded">Ticket</a></li>
-                            <li><a href="?pag=alquiler.php" class="link-dark rounded">Alquiler</a></li>
-                            <li><a href="?pag=cliente2.php" class="link-dark rounded">Coche</a></li>
-                        </ul>
-                    </div>
-                </li>
+        <?php if ($tipo_user == "CLIENTE") { ?>
 
-            <?php } else { ?>
-                <li class="mb-1">
-                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-                        Privilegios
-                    </button>
-                    <div class="collapse" id="dashboard-collapse">
-                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="?pag=alquiler.php" class="link-dark rounded">Alquiler</a></li>
-                            <li><a href="?pag=cliente.php" class="link-dark rounded">Cliente</a></li>
-                            <li><a href="?pag=cliente2.php" class="link-dark rounded">Coche</a></li>
-                            <li><a href="?pag=coche.php" class="link-dark rounded">Distribuidor</a></li>
-                            <li><a href="?pag=distribuidor.php" class="link-dark rounded">Empleado</a></li>
-                            <li><a href="?pag=factura.php" class="link-dark rounded">Factura</a></li>
-                            <li><a href="?pag=garage.php" class="link-dark rounded">Garage</a></li>
-                            <li><a href="?pag=local.php" class="link-dark rounded">Local</a></li>
-                            <li><a href="?pag=mantenimiento.php" class="link-dark rounded">Mantenimiento</a></li>
-                            <li><a href="?pag=promocion.php" class="link-dark rounded">Promoción</a></li>
-                            <li><a href="?pag=seguro.php" class="link-dark rounded">Seguro</a></li>
-                            <li><a href="?pag=ticket.php" class="link-dark rounded">Ticket</a></li>
-                        </ul>
-                    </div>
-                </li>
-            <?php } ?>
-            <!-- <li class="border-top my-3"></li>
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <li><a href="?pag=factura.php" class="link-dark rounded">Factura</a></li>
+                <li><a href="?pag=promocion.php" class="link-dark rounded">Promoción</a></li>
+                <li><a href="?pag=ticket.php" class="link-dark rounded">Ticket</a></li>
+                <li><a href="?pag=alquiler.php" class="link-dark rounded">Alquiler</a></li>
+                <li><a href="?pag=cliente2.php" class="link-dark rounded">Coche</a></li>
+            </ul>
+
+        <?php } else { ?>
+
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <li><a href="?pag=alquiler.php" class="link-dark rounded">Alquiler</a></li>
+                <li><a href="?pag=cliente.php" class="link-dark rounded">Cliente</a></li>
+                <li><a href="?pag=cliente2.php" class="link-dark rounded">Coche</a></li>
+                <li><a href="?pag=coche.php" class="link-dark rounded">Distribuidor</a></li>
+                <li><a href="?pag=distribuidor.php" class="link-dark rounded">Empleado</a></li>
+                <li><a href="?pag=factura.php" class="link-dark rounded">Factura</a></li>
+                <li><a href="?pag=garage.php" class="link-dark rounded">Garage</a></li>
+                <li><a href="?pag=local.php" class="link-dark rounded">Local</a></li>
+                <li><a href="?pag=mantenimiento.php" class="link-dark rounded">Mantenimiento</a></li>
+                <li><a href="?pag=promocion.php" class="link-dark rounded">Promoción</a></li>
+                <li><a href="?pag=seguro.php" class="link-dark rounded">Seguro</a></li>
+                <li><a href="?pag=ticket.php" class="link-dark rounded">Ticket</a></li>
+            </ul>
+
+        <?php } ?>
+        <!-- <li class="border-top my-3"></li>
         <li class="mb-1 ms-auto">
             <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
                 Cuenta
@@ -67,6 +55,5 @@ else
                 </ul>
             </div>
         </li> -->
-        </ul>
     </div>
 </div>
