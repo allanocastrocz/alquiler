@@ -179,13 +179,29 @@ class Consultas
         return $declaracion->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function DelClienteById ($id)
+    public function DelClienteById($id)
     {
-        # TODO
+        $sql = "DELETE FROM cliente2 WHERE cli_rfc = ?";
+        $sql2 = "DELETE FROM cliente WHERE rfc = ?";
+
+        // Declaraciones preparadas
+        $declaracion = $this->pdo->prepare($sql);
+
+        // True si inserta correctamente cliente
+        if ($declaracion->execute([$id])) {
+            // Libera el cursor
+            $declaracion->closeCursor();
+            // perara la segunda declaración
+            $declaracion = $this->pdo->prepare($sql2);
+            // True si inserta correctamente cliente2
+            if ($declaracion->execute([$id]))
+                return true;
+        }
+        return false;
     }
 
 
-    // FACTURAS ------------------------------------------------------------------------------------------------
+    // FACTURA ------------------------------------------------------------------------------------------------
 
 
     // Inserta un registro con todos los atributos de la tabla
@@ -237,6 +253,14 @@ class Consultas
         $declaracion = $this->pdo->prepare($sql);
 
         return $declaracion->execute($valores);
+    }
+
+    public function GetRegFactura($id)
+    {
+        $sql = "SELECT * FROM faccliente WHERE cli_rfc = ?";
+        $declaracion = $this->pdo->prepare($sql);
+        $declaracion->execute([$id]);
+        return $declaracion->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // PROMOCION ------------------------------------------------------------------------------------------------
@@ -535,7 +559,7 @@ class Consultas
         return $declaracion->execute($valores);
     }
 
-    // DISTRIBUIDOR ------------------------------------------------------------------------------------------------
+    // ALQUILER ------------------------------------------------------------------------------------------------
 
     // Inserta un registro con todos los atributos de la tabla
     public function InsertAlquiler(array $datos)
@@ -583,6 +607,17 @@ class Consultas
         return $declaracion->execute($valores);
     }
 
+    // Retorna registros por su id en la tabla
+    public function GetRegAlquiler($id)
+    {
+        $sql = "SELECT * FROM alquiler 
+                JOIN faccliente ON alquiler.tic_fol = faccliente.tic_fol
+                WHERE faccliente.cli_rfc = ?";
+        $declaracion = $this->pdo->prepare($sql);
+        $declaracion->execute([$id]);
+        return $declaracion->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // COCHE ------------------------------------------------------------------------------------------------
 
     // Inserta un registro con todos los atributos de la tabla
@@ -602,7 +637,7 @@ class Consultas
             ':precioxdia' => $datos['precioxdia'],
             ':observaciones' => $datos['observaciones'],
             ':factura' => $datos['factura'],
-            ':gar_id' => $datos['gar_id'],            
+            ':gar_id' => $datos['gar_id'],
             ':seg_id' => $datos['seg_id'],
             ':dist_id' => $datos['dist_id'],
             ':mant_id' => $datos['mant_id']
@@ -633,7 +668,7 @@ class Consultas
             ':precioxdia' => $datos['precioxdia'],
             ':observaciones' => $datos['observaciones'],
             ':factura' => $datos['factura'],
-            ':gar_id' => $datos['gar_id'],            
+            ':gar_id' => $datos['gar_id'],
             ':seg_id' => $datos['seg_id'],
             ':dist_id' => $datos['dist_id'],
             ':mant_id' => $datos['mant_id'],
@@ -647,11 +682,120 @@ class Consultas
         return $declaracion->execute($valores);
     }
 
+    // EMPLEADO ------------------------------------------------------------------------------------------------
+
+    // Inserta un registro con todos los atributos de la tabla
+    public function InsertEmpleado(array $datos)
+    {
+        /* Inserta los valores  en la tabla correspondiente*/
+        $sql = "INSERT INTO empleado 
+                     VALUES (:rfc, :nombre, :apaterno, :amaterno, :puesto,
+                     :telefono, :loc_id, :gar_id, :jefe_id, :clave)";
+
+        // Vinculación de los valores
+        $valores = [
+            ':rfc' => $datos['rfc'],
+            ':nombre' => $datos['nombre'],
+            ':apaterno' => $datos['apaterno'],
+            ':amaterno' => $datos['amaterno'],
+            ':puesto' => $datos['puesto'],
+            ':telefono' => $datos['telefono'],
+            ':loc_id' => $datos['loc_id'],
+            ':gar_id' => $datos['gar_id'],
+            ':jefe_id' => $datos['jefe_id'],
+            ':clave' => $datos['clave']
+        ];
+
+        // Declaraciones preparadas
+        $declaracion = $this->pdo->prepare($sql);
+
+        return $declaracion->execute($valores);
+    }
+
+    // Actualiza un registro de la tabla
+    public function UpdateEmpleado(array $datos)
+    {
+        // Script para actualizar el registro
+        $sql = "UPDATE empleado 
+                    SET nombre = :nombre, apaterno = :apaterno, amaterno = :amaterno, 
+                    puesto = :puesto, telefono = :telefono, 
+                    loc_id = :loc_id, gar_id = :gar_id, jefe_id = :jefe_id
+                    WHERE rfc = :idReg";
+
+        // Vinculación de los valores
+        $valores = [
+            ':nombre' => $datos['nombre'],
+            ':apaterno' => $datos['apaterno'],
+            ':amaterno' => $datos['amaterno'],
+            ':puesto' => $datos['puesto'],
+            ':telefono' => $datos['telefono'],
+            ':loc_id' => $datos['loc_id'],
+            ':gar_id' => $datos['gar_id'],
+            ':jefe_id' => $datos['jefe_id'],
+            ':idReg' => $datos['idReg']
+
+        ];
+
+        // Declaraciones preparadas
+        $declaracion = $this->pdo->prepare($sql);
+
+        return $declaracion->execute($valores);
+    }
+
     // TICKETS ------------------------------------------------------------------------------------------------
 
+    // Inserta un registro con todos los atributos de la tabla
+    public function InsertTicket(array $datos)
+    {
+        /* Inserta los valores  en la tabla correspondiente*/
+        $sql = "INSERT INTO ticket 
+                 VALUES (:folio, :fecha, :cantidad, :prom_id)";
 
+        // Vinculación de los valores
+        $valores = [
+            ':folio' => $datos['folio'],
+            ':fecha' => $datos['fecha'],
+            ':cantidad' => $datos['cantidad'],
+            ':prom_id' => $datos['prom_id']
+        ];
 
+        // Declaraciones preparadas
+        $declaracion = $this->pdo->prepare($sql);
 
+        return $declaracion->execute($valores);
+    }
 
+    // Actualiza un registro de la tabla
+    public function UpdateTicket(array $datos)
+    {
+        // Script para actualizar el registro
+        $sql = "UPDATE ticket 
+                SET fecha = :fecha, cantidad = :cantidad, prom_id = :prom_id
+                WHERE folio = :idReg";
 
+        // Vinculación de los valores
+        $valores = [
+            ':fecha' => $datos['fecha'],
+            ':cantidad' => $datos['cantidad'],
+            ':prom_id' => $datos['prom_id'],
+            ':idReg' => $datos['idReg']
+
+        ];
+
+        // Declaraciones preparadas
+        $declaracion = $this->pdo->prepare($sql);
+
+        return $declaracion->execute($valores);
+    }
+
+    // Retorna registros por su id en la tabla
+    public function GetRegTicket($id)
+    {
+        $sql = "SELECT * FROM ticket 
+                JOIN faccliente ON ticket.folio = faccliente.tic_fol 
+                WHERE faccliente.cli_rfc = ?";
+        $declaracion = $this->pdo->prepare($sql);
+        $declaracion->execute([$id]);
+        return $declaracion->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

@@ -1,11 +1,14 @@
 <?php
 
+$datos = $queries->GetRegistros('ticket');
 $promos = $queries->GetRegistros('promocion');
 
 
 if ($tipo_user != "CLIENTE") {
     include($module_path . "botones.php");
-}  
+} else {
+    $datos = $queries->GetRegTicket($_SESSION['usuario']['rfc']);
+}
 ?>
 <!-- tabla -->
 <div class="row">
@@ -13,26 +16,22 @@ if ($tipo_user != "CLIENTE") {
     <table id="tabla_select" class="table table-striped" style="width:100%">
         <thead>
             <tr>
-                <th>#</th>
-                <th>Nombre</th>
-                <th>Tipo</th>
-                <th>Costo</th>
-                <th>Inicio</th>
-                <th>Fin</th>
+                <th>Folio</th>
+                <th>Fecha</th>
+                <th>Cantidad</th>
+                <th>ID Promoción</th>
             </tr>
         </thead>
         <tbody>
 
             <!-- llenado de datos -->
-            <?php foreach ($promos as $promo) { ?>
+            <?php foreach ($datos as $dato) { ?>
 
                 <tr>
-                    <td><?php echo $promo['id']; ?></td>
-                    <td><?php echo $promo['nombre']; ?></td>
-                    <td><?php echo $promo['tipo']; ?></td>
-                    <td><?php echo '$' . $promo['costo']; ?></td>
-                    <td><?php echo $promo['inicio']; ?></td>
-                    <td><?php echo $promo['fin']; ?></td>
+                    <td><?php echo $dato['folio']; ?></td>
+                    <td><?php echo $dato['fecha']; ?></td>
+                    <td><?php echo $dato['cantidad']; ?></td>
+                    <td><?php echo $dato['prom_id']; ?></td>
                 </tr>
 
             <?php }  ?>
@@ -40,6 +39,7 @@ if ($tipo_user != "CLIENTE") {
     </table>
 
 </div>
+
 
 
 
@@ -55,33 +55,35 @@ if ($tipo_user != "CLIENTE") {
 
                 <div class="modal-body">
                     <input type="text" name="accion" id="inputAccion" value="editar" hidden>
-                    <input type="text" name="tabla" value="promocion" id="tablaNombre" hidden>
+                    <input type="text" name="tabla" value="ticket" id="tablaNombre" hidden>
                     <input type="text" name="idReg" id="idReg" hidden>
 
                     <div class="form-floating mb-3">
-                        <input maxlength="8" type="text" class="form-control" required name="id" id="inp-id">
-                        <label for="inputGasto">ID</label>
+                        <input maxlength="8" type="text" class="form-control" required name="folio" id="inp-folio">
+                        <label for="inputGasto">Folio</label>
                     </div>
+
                     <div class="form-floating mb-3">
-                        <input maxlength="15" type="text" class="form-control" required name="nombre" id="inp-nombre">
-                        <label for="inputGasto">Nombre</label>
+                        <input type="date" class="form-control" required name="fecha" id="inp-fecha">
+                        <label for="inputGasto">Fecha</label>
                     </div>
+
                     <div class="form-floating mb-3">
-                        <input maxlength="20" type="text" class="form-control" required name="tipo" id="inp-tipo">
-                        <label for="inputGasto">Tipo</label>
+                        <input maxlength="8" type="number" class="form-control" required name="cantidad" id="inp-cantidad">
+                        <label for="inputImporte">Cantidad</label>
                     </div>
+
                     <div class="form-floating mb-3">
-                        <input maxlength="8" type="number" step=".01"  class="form-control" required name="costo" id="inp-costo">
-                        <label for="inputImporte">Costo</label>
+                        <select class="form-select" type="text" required name="prom_id" id="inp-prom_id">
+                            <option disabled selected>Seleccionar</option>
+                            <!-- llenado de dropdown-->
+                            <?php foreach ($promos as $promo) { ?>
+                                <option value="<?php echo $promo['id']; ?>"><?php echo $promo['id']; ?></option>
+                            <?php }  ?>
+                        </select>
+                        <label for="inputGasto">ID Promoción</label>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input type="date" class="form-control" required name="inicio" id="inp-inicio">
-                        <label for="inputGasto">Inicio</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="date" class="form-control" required name="fin" id="inp-fin">
-                        <label for="inputGasto">Fin</label>
-                    </div>
+
                 </div>
 
                 <div class="modal-footer">

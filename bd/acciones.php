@@ -23,6 +23,12 @@ try {
             case 'coche':
                 $jsonRes['data'] = $consultas->GetRegistroWithId($_POST['id'], 'matricula', $_POST['tabla']);
                 break;
+            case 'empleado':
+                $jsonRes['data'] = $consultas->GetRegistroWithId($_POST['id'], 'rfc', $_POST['tabla']);
+                break;
+            case 'ticket':
+                $jsonRes['data'] = $consultas->GetRegistroWithId($_POST['id'], 'folio', $_POST['tabla']);
+                break;
 
             default:
                 $jsonRes['data'] = $consultas->GetRegistroById($_POST['id'], $_POST['tabla']);
@@ -61,6 +67,12 @@ try {
             case 'coche':
                 $jsonRes['status'] = $consultas->InsertCoche($_POST);
                 break;
+            case 'empleado':
+                $jsonRes['status'] = $consultas->InsertEmpleado($_POST);
+                break;
+            case 'ticket':
+                $jsonRes['status'] = $consultas->InsertTicket($_POST);
+                break;
         }
     } else if ($_POST['accion'] == 'editar') {
 
@@ -95,15 +107,27 @@ try {
             case 'coche':
                 $jsonRes['status'] = $consultas->UpdateCoche($_POST);
                 break;
+            case 'empleado':
+                $jsonRes['status'] = $consultas->UpdateEmpleado($_POST);
+                break;
+            case 'ticket':
+                $jsonRes['status'] = $consultas->UpdateTicket($_POST);
+                break;
         }
     } else if ($_POST['accion'] == 'eliminar') {
 
         switch ($_POST['tabla']) {
-            case 'cliente':
-                $jsonRes['status'] = $consultas->DelRegistroWithId($_POST['id'], 'rfc', $_POST['tabla']);
-                break;
             case 'coche':
                 $jsonRes['status'] = $consultas->DelRegistroWithId($_POST['id'], 'matricula', $_POST['tabla']);
+                break;
+            case 'empleado':
+                $jsonRes['status'] = $consultas->DelRegistroWithId($_POST['id'], 'rfc', $_POST['tabla']);
+                break;
+            case 'ticket':
+                $jsonRes['data'] = $consultas->DelRegistroWithId($_POST['id'], 'folio', $_POST['tabla']);
+                break;
+            case 'cliente':
+                $jsonRes['data'] = $consultas->DelClienteById($_POST['id']);
                 break;
 
             default:

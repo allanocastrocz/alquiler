@@ -1,13 +1,16 @@
 <?php
 
-$facturas = $queries->GetRegistros('faccliente');
+$datos = $queries->GetRegistros('faccliente');
 $folios = $queries->GetRegistros('ticket');
 $clientes = $queries->GetRegistros('cliente');
 
 
 if ($tipo_user != "CLIENTE") {
     include($module_path . "botones.php");
+} else {
+    $datos = $queries->GetRegFactura($_SESSION['usuario']['rfc']);
 }
+
 ?>
 <!-- tabla -->
 <div class="row">
@@ -28,17 +31,17 @@ if ($tipo_user != "CLIENTE") {
         <tbody>
 
             <!-- llenado de datos -->
-            <?php foreach ($facturas as $factura) { ?>
+            <?php foreach ($datos as $dato) { ?>
 
                 <tr>
-                    <td><?php echo $factura['id']; ?></td>
-                    <td><?php echo '$' . $factura['gasto_adi']; ?></td>
-                    <td><?php echo '$' . $factura['iva']; ?></td>
-                    <td><?php echo '$' . $factura['descuento']; ?></td>
-                    <td><?php echo '$' . $factura['costo_total']; ?></td>
-                    <td><?php echo $factura['cli_rfc']; ?></td>
-                    <td><?php echo $factura['cli_dni']; ?></td>
-                    <td><?php echo $factura['tic_fol']; ?></td>
+                    <td><?php echo $dato['id']; ?></td>
+                    <td><?php echo '$' . $dato['gasto_adi']; ?></td>
+                    <td><?php echo '$' . $dato['iva']; ?></td>
+                    <td><?php echo '$' . $dato['descuento']; ?></td>
+                    <td><?php echo '$' . $dato['costo_total']; ?></td>
+                    <td><?php echo $dato['cli_rfc']; ?></td>
+                    <td><?php echo $dato['cli_dni']; ?></td>
+                    <td><?php echo $dato['tic_fol']; ?></td>
                 </tr>
 
             <?php }  ?>
@@ -64,19 +67,19 @@ if ($tipo_user != "CLIENTE") {
                     <input type="text" name="idReg" id="idReg" hidden>
 
                     <div class="form-floating mb-3">
-                        <input maxlength="8" type="number" step=".01"  class="form-control" required name="gasto_adi" id="inp-gasto_adi">
+                        <input maxlength="8" type="number" step=".01" class="form-control" required name="gasto_adi" id="inp-gasto_adi">
                         <label for="inputGasto">Gasto</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input maxlength="8" type="number" step=".01"  class="form-control" required name="iva" id="inp-iva">
+                        <input maxlength="8" type="number" step=".01" class="form-control" required name="iva" id="inp-iva">
                         <label for="inputIva">Iva</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input maxlength="7" type="number" step=".01"  class="form-control" required name="descuento" id="inp-descuento">
+                        <input maxlength="7" type="number" step=".01" class="form-control" required name="descuento" id="inp-descuento">
                         <label for="inputDescuento">Descuento</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input maxlength="8" type="number" step=".01"  class="form-control" required name="costo_total" id="inp-costo_total">
+                        <input maxlength="8" type="number" step=".01" class="form-control" required name="costo_total" id="inp-costo_total">
                         <label for="inputImporte">Importe</label>
                     </div>
                     <div class="form-floating mb-3">
@@ -103,7 +106,7 @@ if ($tipo_user != "CLIENTE") {
                     </div>
                     <div class="form-floating mb-3">
                         <!-- <input type="number" step=".01"  class="form-control" required name="tic_fol" id="inp-tic_fol"> -->
-                        <select class="form-select" type="number" step=".01"  required name="tic_fol" id="inp-tic_fol">
+                        <select class="form-select" type="number" step=".01" required name="tic_fol" id="inp-tic_fol">
                             <option disabled selected>Seleccionar</option>
                             <!-- llenado de datos -->
                             <?php foreach ($folios as $folio) { ?>

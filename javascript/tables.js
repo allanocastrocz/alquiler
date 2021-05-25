@@ -62,11 +62,15 @@ $(document).ready(function () {
   function enableElements() {
     switch ($("#tablaNombre").val()) {
       case "cliente":
+      case "empleado":
         $("#inp-clave").removeAttr("disabled");
         $("#inp-rfc").removeAttr("disabled");
         break;
       case "coche":
         $("#inp-matricula").removeAttr("disabled");
+        break;
+      case "ticket":
+        $("#inp-folio").removeAttr("disabled");
         break;
 
       default:
@@ -79,11 +83,15 @@ $(document).ready(function () {
   function disableElements() {
     switch ($("#tablaNombre").val()) {
       case "cliente":
+      case "empleado":
         $("#inp-clave").attr("disabled", true);
         $("#inp-rfc").attr("disabled", true);
         break;
       case "coche":
         $("#inp-matricula").attr("disabled", true);
+        break;
+      case "ticket":
+        $("#inp-folio").attr("disabled", true);
         break;
 
       default:

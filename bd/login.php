@@ -30,7 +30,7 @@ if (isset($_POST['clave'])) {
             // propiedades de la sesión del usuario
             $_SESSION['usuario']['rfc'] = $user['rfc'];
             $_SESSION['usuario']['nombre'] = $user['nombre'] . ' ' . $user['apaterno'];
-            $_SESSION['usuario']['correo'] = $user['correo'];
+            $_SESSION['usuario']['correo'] = $user['email'];
             if ($tipo == 'empleado') {
                 $_SESSION['usuario']['puesto'] = $user['puesto'];
             }

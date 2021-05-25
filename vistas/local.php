@@ -3,9 +3,10 @@
 $promos = $queries->GetRegistros('local');
 
 
-if ($tipo_user != "CLIENTE") {
-    include($module_path . "botones.php");
+if ($tipo_user == "CLIENTE") {
+    Header("Location: index.php");
 }
+include($module_path . "botones.php");
 ?>
 <!-- tabla -->
 <div class="row">

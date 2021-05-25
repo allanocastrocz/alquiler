@@ -7,6 +7,8 @@ $coches = $queries->GetRegistros('coche');
 
 if ($tipo_user != "CLIENTE") {
     include($module_path . "botones.php");
+} else {
+    $datos = $queries->GetRegAlquiler($_SESSION['usuario']['rfc']);
 }
 ?>
 <!-- tabla -->
