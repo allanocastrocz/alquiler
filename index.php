@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="content-type" content="text/html;charset=utf8mb4_spanish_ci">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alquiler</title>
+    <title>Renta de Autos</title>
 
     <?php include_once("modules\css-lib.php"); ?>
     <link href="css\sidebars.css" rel="stylesheet">

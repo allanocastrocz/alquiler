@@ -1,6 +1,6 @@
 <?php
 
-$promos = $queries->GetRegistros('promocion');
+$promos = $queries->GetRegistros('seguro');
 
 
 if ($tipo_user != "CLIENTE") {
@@ -14,11 +14,10 @@ if ($tipo_user != "CLIENTE") {
         <thead>
             <tr>
                 <th>#</th>
-                <th>Nombre</th>
+                <th>Descripción</th>
                 <th>Tipo</th>
                 <th>Costo</th>
-                <th>Inicio</th>
-                <th>Fin</th>
+                <th>Vigencia</th>
             </tr>
         </thead>
         <tbody>
@@ -28,11 +27,10 @@ if ($tipo_user != "CLIENTE") {
 
                 <tr>
                     <td><?php echo $promo['id']; ?></td>
-                    <td><?php echo $promo['nombre']; ?></td>
+                    <td><?php echo $promo['descripcion']; ?></td>
                     <td><?php echo $promo['tipo']; ?></td>
                     <td><?php echo '$' . $promo['costo']; ?></td>
-                    <td><?php echo $promo['inicio']; ?></td>
-                    <td><?php echo $promo['fin']; ?></td>
+                    <td><?php echo $promo['vigencia']; ?></td>
                 </tr>
 
             <?php }  ?>
@@ -55,7 +53,7 @@ if ($tipo_user != "CLIENTE") {
 
                 <div class="modal-body">
                     <input type="text" name="accion" id="inputAccion" value="editar" hidden>
-                    <input type="text" name="tabla" value="promocion" id="tablaNombre" hidden>
+                    <input type="text" name="tabla" value="seguro" id="tablaNombre" hidden>
                     <input type="text" name="idReg" id="idReg" hidden>
 
                     <div class="form-floating mb-3">
@@ -63,8 +61,8 @@ if ($tipo_user != "CLIENTE") {
                         <label for="inputGasto">ID</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input maxlength="15" type="text" class="form-control" required name="nombre" id="inp-nombre">
-                        <label for="inputGasto">Nombre</label>
+                        <input maxlength="15" type="text" class="form-control" required name="descripcion" id="inp-descripcion">
+                        <label for="inputGasto">Descripción</label>
                     </div>
                     <div class="form-floating mb-3">
                         <input maxlength="20" type="text" class="form-control" required name="tipo" id="inp-tipo">
@@ -75,12 +73,8 @@ if ($tipo_user != "CLIENTE") {
                         <label for="inputImporte">Costo</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="date" class="form-control" required name="inicio" id="inp-inicio">
-                        <label for="inputGasto">Inicio</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="date" class="form-control" required name="fin" id="inp-fin">
-                        <label for="inputGasto">Fin</label>
+                        <input type="date" class="form-control" required name="vigencia" id="inp-vigencia">
+                        <label for="inputGasto">Vigencia</label>
                     </div>
                 </div>
 

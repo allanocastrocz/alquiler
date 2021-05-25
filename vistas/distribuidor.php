@@ -1,6 +1,6 @@
 <?php
 
-$promos = $queries->GetRegistros('promocion');
+$datos = $queries->GetRegistros('distribuidor');
 
 
 if ($tipo_user != "CLIENTE") {
@@ -15,24 +15,24 @@ if ($tipo_user != "CLIENTE") {
             <tr>
                 <th>#</th>
                 <th>Nombre</th>
-                <th>Tipo</th>
-                <th>Costo</th>
-                <th>Inicio</th>
-                <th>Fin</th>
+                <th>Dirección</th>
+                <th>Ciudad</th>
+                <th>Teléfono</th>
+                <th>Correo Electrónico</th>
             </tr>
         </thead>
         <tbody>
 
             <!-- llenado de datos -->
-            <?php foreach ($promos as $promo) { ?>
+            <?php foreach ($datos as $dato) { ?>
 
                 <tr>
-                    <td><?php echo $promo['id']; ?></td>
-                    <td><?php echo $promo['nombre']; ?></td>
-                    <td><?php echo $promo['tipo']; ?></td>
-                    <td><?php echo '$' . $promo['costo']; ?></td>
-                    <td><?php echo $promo['inicio']; ?></td>
-                    <td><?php echo $promo['fin']; ?></td>
+                    <td><?php echo $dato['id']; ?></td>
+                    <td><?php echo $dato['nombre']; ?></td>
+                    <td><?php echo $dato['direccion']; ?></td>
+                    <td><?php echo $dato['ciudad']; ?></td>
+                    <td><?php echo $dato['telefono']; ?></td>
+                    <td><?php echo $dato['email']; ?></td>
                 </tr>
 
             <?php }  ?>
@@ -55,7 +55,7 @@ if ($tipo_user != "CLIENTE") {
 
                 <div class="modal-body">
                     <input type="text" name="accion" id="inputAccion" value="editar" hidden>
-                    <input type="text" name="tabla" value="promocion" id="tablaNombre" hidden>
+                    <input type="text" name="tabla" value="distribuidor" id="tablaNombre" hidden>
                     <input type="text" name="idReg" id="idReg" hidden>
 
                     <div class="form-floating mb-3">
@@ -67,20 +67,20 @@ if ($tipo_user != "CLIENTE") {
                         <label for="inputGasto">Nombre</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input maxlength="20" type="text" class="form-control" required name="tipo" id="inp-tipo">
-                        <label for="inputGasto">Tipo</label>
+                        <input maxlength="30" type="text" class="form-control" required name="direccion" id="inp-direccion">
+                        <label for="inputGasto">Dirección</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input maxlength="8" type="number" step=".01"  class="form-control" required name="costo" id="inp-costo">
-                        <label for="inputImporte">Costo</label>
+                        <input maxlength="15" type="text" class="form-control" required name="ciudad" id="inp-ciudad">
+                        <label for="inputGasto">Ciudad</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="date" class="form-control" required name="inicio" id="inp-inicio">
-                        <label for="inputGasto">Inicio</label>
+                        <input maxlength="10" type="number" class="form-control" required name="telefono" id="inp-telefono">
+                        <label for="inputGasto">Teléfono</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="date" class="form-control" required name="fin" id="inp-fin">
-                        <label for="inputGasto">Fin</label>
+                        <input maxlength="20" type="email" class="form-control" required name="email" id="inp-email">
+                        <label for="inputGasto">Correo Electrónico</label>
                     </div>
                 </div>
 

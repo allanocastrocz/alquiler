@@ -1,6 +1,6 @@
 <?php
 
-$promos = $queries->GetRegistros('promocion');
+$promos = $queries->GetRegistros('mantenimiento');
 
 
 if ($tipo_user != "CLIENTE") {
@@ -14,11 +14,11 @@ if ($tipo_user != "CLIENTE") {
         <thead>
             <tr>
                 <th>#</th>
-                <th>Nombre</th>
-                <th>Tipo</th>
-                <th>Costo</th>
-                <th>Inicio</th>
-                <th>Fin</th>
+                <th>Última Fecha</th>
+                <th>Próxima Fecha</th>
+                <th>Gasto del Combustible</th>
+                <th>Refacción</th>
+                <th>Costo Total</th>
             </tr>
         </thead>
         <tbody>
@@ -28,11 +28,11 @@ if ($tipo_user != "CLIENTE") {
 
                 <tr>
                     <td><?php echo $promo['id']; ?></td>
-                    <td><?php echo $promo['nombre']; ?></td>
-                    <td><?php echo $promo['tipo']; ?></td>
-                    <td><?php echo '$' . $promo['costo']; ?></td>
-                    <td><?php echo $promo['inicio']; ?></td>
-                    <td><?php echo $promo['fin']; ?></td>
+                    <td><?php echo $promo['fecha_ultima']; ?></td>
+                    <td><?php echo $promo['fecha_proxima']; ?></td>
+                    <td><?php echo '$' . $promo['gasto_combustible']; ?></td>
+                    <td><?php echo '$' . $promo['refaccion']; ?></td>
+                    <td><?php echo '$' . $promo['costo_total']; ?></td>
                 </tr>
 
             <?php }  ?>
@@ -40,6 +40,7 @@ if ($tipo_user != "CLIENTE") {
     </table>
 
 </div>
+
 
 
 
@@ -55,7 +56,7 @@ if ($tipo_user != "CLIENTE") {
 
                 <div class="modal-body">
                     <input type="text" name="accion" id="inputAccion" value="editar" hidden>
-                    <input type="text" name="tabla" value="promocion" id="tablaNombre" hidden>
+                    <input type="text" name="tabla" value="mantenimiento" id="tablaNombre" hidden>
                     <input type="text" name="idReg" id="idReg" hidden>
 
                     <div class="form-floating mb-3">
@@ -63,25 +64,26 @@ if ($tipo_user != "CLIENTE") {
                         <label for="inputGasto">ID</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input maxlength="15" type="text" class="form-control" required name="nombre" id="inp-nombre">
-                        <label for="inputGasto">Nombre</label>
+                        <input type="date" class="form-control" required name="fecha_ultima" id="inp-fecha_ultima">
+                        <label for="inputGasto">Última Fecha</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input maxlength="20" type="text" class="form-control" required name="tipo" id="inp-tipo">
-                        <label for="inputGasto">Tipo</label>
+                        <input type="date" class="form-control" required name="fecha_proxima" id="inp-fecha_proxima">
+                        <label for="inputGasto">Próxima Fecha</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input maxlength="8" type="number" step=".01"  class="form-control" required name="costo" id="inp-costo">
-                        <label for="inputImporte">Costo</label>
+                        <input maxlength="8" type="number" step=".01"  class="form-control" required name="gasto_combustible" id="inp-gasto_combustible">
+                        <label for="inputImporte">Gasto del Combustible</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="date" class="form-control" required name="inicio" id="inp-inicio">
-                        <label for="inputGasto">Inicio</label>
+                        <input maxlength="8" type="number" step=".01"  class="form-control" required name="refaccion" id="inp-refaccion">
+                        <label for="inputImporte">Refacción</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="date" class="form-control" required name="fin" id="inp-fin">
-                        <label for="inputGasto">Fin</label>
+                        <input maxlength="8" type="number" step=".01"  class="form-control" required name="costo_total" id="inp-costo_total">
+                        <label for="inputImporte">Costo Total</label>
                     </div>
+
                 </div>
 
                 <div class="modal-footer">

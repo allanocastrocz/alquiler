@@ -1,8 +1,8 @@
 <?php
 
-$facturas = $queries->GetFactura();
-$folios = $queries->GetTickets();
-$clientes = $queries->GetClientes();
+$facturas = $queries->GetRegistros('faccliente');
+$folios = $queries->GetRegistros('ticket');
+$clientes = $queries->GetRegistros('cliente');
 
 
 if ($tipo_user != "CLIENTE") {
@@ -48,14 +48,6 @@ if ($tipo_user != "CLIENTE") {
 </div>
 
 
-
-
-
-<!-- Button trigger modal -->
-<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-    Launch static backdrop modal
-</button> -->
-
 <!-- Modal -->
 <div class="modal fade" id="staticModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -68,7 +60,7 @@ if ($tipo_user != "CLIENTE") {
 
                 <div class="modal-body">
                     <input type="text" name="accion" id="inputAccion" value="editar" hidden>
-                    <input type="text" name="tabla" value="factura" id="tablaNombre" hidden>
+                    <input type="text" name="tabla" value="faccliente" id="tablaNombre" hidden>
                     <input type="text" name="idReg" id="idReg" hidden>
 
                     <div class="form-floating mb-3">

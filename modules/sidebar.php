@@ -21,7 +21,7 @@ else
                 <li><a href="?pag=promocion.php" class="link-dark rounded">Promoción</a></li>
                 <li><a href="?pag=ticket.php" class="link-dark rounded">Ticket</a></li>
                 <li><a href="?pag=alquiler.php" class="link-dark rounded">Alquiler</a></li>
-                <li><a href="?pag=cliente2.php" class="link-dark rounded">Coche</a></li>
+                <li><a href="?pag=coche.php" class="link-dark rounded">Coche</a></li>
             </ul>
 
         <?php } else { ?>
@@ -29,9 +29,9 @@ else
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                 <li><a href="?pag=alquiler.php" class="link-dark rounded">Alquiler</a></li>
                 <li><a href="?pag=cliente.php" class="link-dark rounded">Cliente</a></li>
-                <li><a href="?pag=cliente2.php" class="link-dark rounded">Coche</a></li>
-                <li><a href="?pag=coche.php" class="link-dark rounded">Distribuidor</a></li>
-                <li><a href="?pag=distribuidor.php" class="link-dark rounded">Empleado</a></li>
+                <li><a href="?pag=coche.php" class="link-dark rounded">Coche</a></li>
+                <li><a href="?pag=distribuidor.php" class="link-dark rounded">Distribuidor</a></li>
+                <li><a href="?pag=empleado.php" class="link-dark rounded">Empleado</a></li>
                 <li><a href="?pag=factura.php" class="link-dark rounded">Factura</a></li>
                 <li><a href="?pag=garage.php" class="link-dark rounded">Garage</a></li>
                 <li><a href="?pag=local.php" class="link-dark rounded">Local</a></li>
@@ -42,18 +42,6 @@ else
             </ul>
 
         <?php } ?>
-        <!-- <li class="border-top my-3"></li>
-        <li class="mb-1 ms-auto">
-            <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
-                Cuenta
-            </button>
-            <div class="collapse" id="account-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="#" class="link-dark rounded">Perfil</a></li>
-                    <li><a href="#" class="link-dark rounded">Opciones</a></li>
-                    <li><a href="#" class="link-dark rounded">Cerrar sesión</a></li>
-                </ul>
-            </div>
-        </li> -->
+        
     </div>
 </div>

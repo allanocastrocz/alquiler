@@ -1,31 +1,36 @@
 $(document).ready(function () {
   // Posición de las notificaciones
-  alertify.set("notifier", "position", "top-right");
+  alertify.set("notifier", "position", "top-center");
 
   // Inicicalización de la tabla
   table = $("#tabla_select").DataTable({
     language: {
       url: "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json",
     },
+    scrollX: true,
+    paging: false,
+    fixedColumns: true,
   });
 
-  // Funcionamiento de la selección de filas
-  $("#tabla_select tbody").on("click", "tr", function () {
-    if ($(this).hasClass("tr-selected")) {
-      $(this).removeClass("tr-selected");
-      // Desactiva los botones
-      $("#btnEliminar").attr("disabled", true);
-      $("#btnEditar").attr("disabled", true);
-    } else {
-      // Desenfoca la fila ya seleccionada
-      table.$(".tr-selected").removeClass("tr-selected");
-      // Fila seleccionada
-      $(this).addClass("tr-selected");
-      // Activa los botones
-      $("#btnEliminar").removeAttr("disabled");
-      $("#btnEditar").removeAttr("disabled");
-    }
-  });
+  // Funcionamiento de la selección de filas si no es cliente
+  if ($("#btnNuevo").length > 0) {
+    $("#tabla_select tbody").on("click", "tr", function () {
+      if ($(this).hasClass("tr-selected")) {
+        $(this).removeClass("tr-selected");
+        // Desactiva los botones
+        $("#btnEliminar").attr("disabled", true);
+        $("#btnEditar").attr("disabled", true);
+      } else {
+        // Desenfoca la fila ya seleccionada
+        table.$(".tr-selected").removeClass("tr-selected");
+        // Fila seleccionada
+        $(this).addClass("tr-selected");
+        // Activa los botones
+        $("#btnEliminar").removeAttr("disabled");
+        $("#btnEditar").removeAttr("disabled");
+      }
+    });
+  }
 
   /* Envío de formulario del modal */
   $("#formModal").submit(function (e) {
@@ -40,30 +45,67 @@ $(document).ready(function () {
         if (res["status"]) {
           location.reload();
         } else {
-          alertify.error("Woopsie. Ha ocurrido un error.");
-          console.log(res['msg']);
+          alertify.warning("Woopsie. Ha ocurrido un error.");
+          console.log(res["msg"]);
         }
+      },
+      error: function (res) {
+        alertify.error("Error de plataforma");
+        console.log(res["responseText"]);
       },
     });
   });
 
   /* Funcionalidad de botones */
 
+  // Desactiva campos conflictivos
+  function enableElements() {
+    switch ($("#tablaNombre").val()) {
+      case "cliente":
+        $("#inp-clave").removeAttr("disabled");
+        $("#inp-rfc").removeAttr("disabled");
+        break;
+      case "coche":
+        $("#inp-matricula").removeAttr("disabled");
+        break;
+
+      default:
+        $("#inp-id").removeAttr("disabled");
+        break;
+    }
+  }
+
+  // Reacitva los campos
+  function disableElements() {
+    switch ($("#tablaNombre").val()) {
+      case "cliente":
+        $("#inp-clave").attr("disabled", true);
+        $("#inp-rfc").attr("disabled", true);
+        break;
+      case "coche":
+        $("#inp-matricula").attr("disabled", true);
+        break;
+
+      default:
+        $("#inp-id").attr("disabled", true);
+        break;
+    }
+  }
+
   //   Agregar
   $("#btnNuevo").on("click", function () {
+    enableElements();
+
     $("#formModal").trigger("reset"); // limpia modal
     $("#staticModal").modal("show"); // muestra modal
     $("#inputAccion").attr("value", "nuevo"); // acción del formulario
     $("#modalTitle").html("Nuevo registro"); // título del modal
-
-  });
-
-  $("#btnPrueba").on("click", function () {
-    alertify.success("prueba");
   });
 
   //   Editar
   $("#btnEditar").on("click", function () {
+    disableElements();
+
     $("#staticModal").modal("show"); // muestra modal
     $("#inputAccion").attr("value", "editar"); // acción del formulario
     $("#modalTitle").html("Editar registro"); // título del modal
@@ -87,11 +129,20 @@ $(document).ready(function () {
       processData: false,
       dataType: "JSON",
       success: function (res) {
-        $('#idReg').attr("value", id);
-        // Rellena los inputs del formulario en el modal
-        Object.keys(res["data"]).forEach((llave) => {
-          $("#inp-" + llave).val(res["data"][llave]);
-        });
+        if (res["status"]) {
+          $("#idReg").attr("value", id);
+          // Rellena los inputs del formulario en el modal
+          Object.keys(res["data"]).forEach((llave) => {
+            $("#inp-" + llave).val(res["data"][llave]);
+          });
+        } else {
+          alertify.warning("Algo salió mal");
+          console.log(res);
+        }
+      },
+      error: function (res) {
+        alertify.error("Error de plataforma");
+        console.log(res["responseText"]);
       },
     });
   });
@@ -126,8 +177,13 @@ $(document).ready(function () {
           $("#btnEliminar").attr("disabled", true);
           $("#btnEditar").attr("disabled", true);
         } else {
-          alertify.error("No se pudo eliminar registro");
+          alertify.warning("Violación de la restricción de integridad");
+          console.log(res["msg"]);
         }
+      },
+      error: function (res) {
+        alertify.error("Error de plataforma");
+        console.log(res["responseText"]);
       },
     });
   });
