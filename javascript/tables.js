@@ -9,7 +9,6 @@ $(document).ready(function () {
     },
     scrollX: true,
     paging: false,
-    fixedColumns: true,
   });
 
   // Funcionamiento de la selección de filas si no es cliente
